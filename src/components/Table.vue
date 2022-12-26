@@ -11,14 +11,14 @@
         </tr>
       </thead>
       <tbody class="table__tbody">
-        <tr v-for="item in filteredTableData" :key="item.id">
+        <tr v-for="(item, index) in filteredTableData" :key="item.id">
           <td>{{ item.id }}</td>
           <td>{{ item.number }}</td>
           <td>{{ translateType(item.type) }}</td>
           <td>{{ item.creationDate }}</td>
           <td @click="clickIcon" class="table__icon">
             <img class="table__image" src="@/assets/icons/Vector.svg" alt="" />
-            <div class="modal">
+            <div class="modal" @click="removeItem(index)">
               <img class="modal__icon" src="@/assets/icons/three_dots.svg" alt="" />
               Удалить
             </div>
@@ -27,12 +27,12 @@
       </tbody>
     </table>
     <div v-else-if="isTableShow == '1'" class="card">
-      <div class="card__item" v-for="item in filteredTableData" :key="item.id">
+      <div class="card__item" v-for="(item, index) in filteredTableData" :key="item.id">
         <div class="card__title">
           <div class="card__id">{{ item.id }}</div>
           <div class="card__icon" @click="clickIcon">
             <img class="card__image" src="@/assets/icons/Vector.svg" alt="" />
-            <div class="modal">
+            <div class="modal" @click="removeItem(index)">
               <img class="modal__icon" src="@/assets/icons/three_dots.svg" alt="" />
               Удалить
             </div>
@@ -74,10 +74,15 @@ export default {
         item.classList.remove('modal__active');
       });
 
+      console.log('target', event.target.querySelector('.modal'));
+
       const target = event.target.querySelector('.modal');
       if (target) {
         target.classList.add('modal__active');
       }
+    },
+    removeItem(index) {
+      this.REMOVE_TABLE_ITEM(index);
     },
     translateType(type) {
       if (type === 'Pickup') {
@@ -122,7 +127,7 @@ export default {
   }
 
   &__image {
-    pointer-events: none;
+    // pointer-events: none;
   }
 }
 
@@ -156,6 +161,10 @@ export default {
 
     text-align: left;
     background-color: #f6fafb;
+  }
+
+  &__icon {
+    cursor: pointer;
   }
 
   &__invoice {
