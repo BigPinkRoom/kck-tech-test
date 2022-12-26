@@ -79,6 +79,8 @@ export default {
       const target = event.target.querySelector('.modal');
       if (target) {
         target.classList.add('modal__active');
+      } else {
+        console.log('event', event.target);
       }
     },
     removeItem(index) {
@@ -127,7 +129,7 @@ export default {
   }
 
   &__image {
-    // pointer-events: none;
+    pointer-events: none;
   }
 }
 
@@ -164,7 +166,13 @@ export default {
   }
 
   &__icon {
+    position: relative;
+
     cursor: pointer;
+  }
+
+  &__image {
+    pointer-events: none;
   }
 
   &__invoice {
