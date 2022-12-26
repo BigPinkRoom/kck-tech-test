@@ -42,6 +42,9 @@ export default new Vuex.Store({
     SET_IS_TABLE_SHOW(state, payload) {
       state.isTableShow = payload;
     },
+    REMOVE_TABLE_ITEM(state, payload) {
+      state.filteredTableData.splice(payload, 1);
+    },
   },
   actions: {},
   getters: {

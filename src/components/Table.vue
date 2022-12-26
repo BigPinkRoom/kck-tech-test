@@ -55,7 +55,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapMutations } from 'vuex';
 
 export default {
   name: 'Table',
@@ -66,6 +66,7 @@ export default {
     return {};
   },
   methods: {
+    ...mapMutations(['REMOVE_TABLE_ITEM']),
     clickIcon(event) {
       const modals = document.querySelectorAll('.modal');
 
@@ -74,7 +75,9 @@ export default {
       });
 
       const target = event.target.querySelector('.modal');
-      target.classList.add('modal__active');
+      if (target) {
+        target.classList.add('modal__active');
+      }
     },
     translateType(type) {
       if (type === 'Pickup') {
